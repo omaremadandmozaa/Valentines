@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مفاجأة فالنتاين لموزة ♥</title>
+  <meta name="description" content="موقع فالنتاين تفاعلي ومفاجآت وعداد تنازلي - من عمر إلى موزة" />
+  <style>
+    :root{
+      --bg1:#0b0b12;
+      --bg2:#130a1a;
+      --card: rgba(255,255,255,.07);
+      --card2: rgba(255,255,255,.10);
+      --text:#fff;
+      --muted: rgba(255,255,255,.75);
+      --pink:#ff4d8d;
+      --rose:#ff7aa8;
+      --gold:#ffd48a;
+      --good:#38d39f;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(255,77,141,.35), transparent 60%),
+        radial-gradient(900px 600px at 10% 10%, rgba(255,212,138,.25), transparent 55%),
+        radial-gradient(1200px 800px at 40% 110%, rgba(56,211,159,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .container{
+      width:min(1050px, 92vw);
+      margin:0 auto;
+      padding:28px 0 80px;
+    }
+
+    /* top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      background: linear-gradient(90deg, rgba(255,77,141,.22), rgba(255,212,138,.18));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+      font-weight:650;
+    }
+    .badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--pink);
+      box-shadow: 0 0 0 6px rgba(255,77,141,.15);
+      animation:pulse 1.6s infinite;
+    }
+    @keyframes pulse{
+      0%{transform:scale(1); opacity:1}
+      70%{transform:scale(1.2); opacity:.7}
+      100%{transform:scale(1); opacity:1}
+    }
+    .miniActions{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-weight:650;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      backdrop-filter: blur(10px);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20);}
+    .btn:active{transform: translateY(0px) scale(.99);}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(255,77,141,.35), rgba(255,122,168,.25));
+      border-color: rgba(255,77,141,.35);
+    }
+
+    /* hero */
+    .hero{
+      position:relative;
+      padding:28px 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 260px at 85% 0%, rgba(255,77,141,.35), transparent 55%),
+        radial-gradient(520px 280px at 10% 20%, rgba(255,212,138,.22), transparent 55%),
+        radial-gradient(620px 340px at 40% 120%, rgba(56,211,159,.14), transparent 60%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .heroInner{position:relative; z-index:1;}
+    .title{
+      margin:0;
+      font-size: clamp(26px, 3.6vw, 42px);
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.7vw, 18px);
+      line-height:1.7;
+      max-width: 70ch;
+    }
+    .names{
+      display:inline-flex;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.14);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:750;
+    }
+    .pill b{color: var(--gold)}
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* cards */
+    .card{
+      background: var(--card);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .card p{margin:0; color:var(--muted); line-height:1.7}
+
+    /* countdown */
+    .countWrap{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .countBox{
+      background: rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding:12px 10px;
+      text-align:center;
+    }
+    .countBox .num{
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight:900;
+      color: #fff;
+    }
+    .countBox .lbl{
+      margin-top:4px;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      letter-spacing:.3px;
+    }
+
+    /* surprise area */
+    .actions{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .surpriseBox{
+      margin-top:12px;
+      padding:14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,77,141,.16), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,77,141,.22);
+      min-height: 110px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .surpriseText{
+      font-size: 18px;
+      line-height:1.8;
+      font-weight:700;
+      color:#fff;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    /* timeline */
+    .timeline{
+      margin-top:14px;
+      display:grid;
+      gap:10px;
+    }
+    .moment{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .moment .ic{
+      width:34px;height:34px;border-radius: 12px;
+      display:grid; place-items:center;
+      background: rgba(255,77,141,.18);
+      border:1px solid rgba(255,77,141,.25);
+      flex:0 0 auto;
+    }
+    .moment .txt b{display:block; margin-bottom:2px}
+    .moment .txt small{color:var(--muted); line-height:1.7; display:block}
+
+    /* proposal modal */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index: 1000;
+    }
+    .modal{
+      width:min(720px, 92vw);
+      background: rgba(18,12,22,.86);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 20px;
+      box-shadow: 0 20px 90px rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+    .modalHeader{
+      padding:16px 16px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .modalHeader h3{margin:0; font-size:18px}
+    .close{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      padding:8px 10px;
+      border-radius: 999px;
+      font-weight:800;
+    }
+    .modalBody{
+      padding:16px;
+      display:grid;
+      gap:12px;
+    }
+    .bigQ{
+      font-size: clamp(22px, 3.2vw, 30px);
+      line-height:1.5;
+      font-weight:950;
+      margin:0;
+    }
+    .choices{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .yes{
+      background: linear-gradient(90deg, rgba(56,211,159,.35), rgba(255,77,141,.24));
+      border-color: rgba(56,211,159,.35);
+    }
+    .no{
+      position:relative;
+    }
+    .result{
+      margin-top:10px;
+      padding:12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      display:none;
+    }
+    .result p{margin:0; color:#fff; font-weight:750; line-height:1.8}
+    .note{
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      line-height:1.6;
+    }
+
+    /* footer */
+    footer{
+      margin-top:18px;
+      text-align:center;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+    }
+
+    /* floating hearts canvas */
+    canvas#fx{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index: 999;
+    }
+
+    /* tiny toast */
+    .toast{
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(12px);
+      color:#fff;
+      padding:10px 12px;
+      border-radius: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      max-width: 280px;
+      display:none;
+      z-index: 1100;
+      line-height:1.6;
+      font-weight:650;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="fx"></canvas>
+
+  <div class="container">
+    <div class="top">
+      <div class="badge" title="موقع فالنتاين تفاعلي">
+        <span class="dot"></span>
+        <span>مفاجأة فالنتاين ♥</span>
+      </div>
+
+      <div class="miniActions">
+        <button class="btn" id="musicBtn" aria-label="تشغيل/إيقاف الموسيقى">🎵 موسيقى</button>
+        <button class="btn" id="confettiBtn" aria-label="رشّة قلوب">💞 قلوب</button>
+        <button class="btn" id="openProposal" aria-label="سؤال مهم">💍 سؤال</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="heroInner">
+        <h1 class="title">يا موزة… عندي ليكي مفاجآت كتير ♥</h1>
+        <p class="subtitle">
+          ده موقع معمول مخصوص عشانك… فيه عدّاد وقت، رسائل مخبّاية، مفاجآت تظهر واحدة واحدة،
+          وسؤال “آخره سعادة” 😄
+        </p>
+
+        <div class="names">
+          <div class="pill">من <b>عُمر</b> ✨</div>
+          <div class="pill">إلى <b>موزة</b> 🌸</div>
+          <div class="pill" id="todayPill">📅 اليوم: ...</div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h2>⏳ عدّادنا الجميل</h2>
+            <p>
+              العدّاد ده بيتابع الوقت لحد التاريخ اللي تختاره (فالنتاين أو أي يوم مهم ليكم).
+              تقدر تغيّره من داخل الكود بسهولة.
+            </p>
+            <div class="countWrap" aria-label="العداد التنازلي">
+              <div class="countBox"><div class="num" id="d">--</div><div class="lbl">يوم</div></div>
+              <div class="countBox"><div class="num" id="h">--</div><div class="lbl">ساعة</div></div>
+              <div class="countBox"><div class="num" id="m">--</div><div class="lbl">دقيقة</div></div>
+              <div class="countBox"><div class="num" id="s">--</div><div class="lbl">ثانية</div></div>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" id="revealBtn">🎁 افتحي مفاجأة</button>
+              <button class="btn" id="secretBtn">🔐 رسالة سرّية</button>
+              <button class="btn" id="memoryBtn">📸 ذكرى لطيفة</button>
+            </div>
+
+            <div class="surpriseBox" id="surpriseBox" role="status" aria-live="polite">
+              <div class="surpriseText" id="surpriseText">اضغطي “افتحي مفاجأة” 😌</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>🧡 تفاصيل صغيرة… بس بتفرق</h2>
+            <p>
+              هنا شوية “لحظات” مكتوبة كأنها كارت حب. (تقدري تغيّري الكلام لأي ذكريات خاصة).
+            </p>
+
+            <div class="timeline" aria-label="لحظات">
+              <div class="moment">
+                <div class="ic">✨</div>
+                <div class="txt">
+                  <b>موزة…</b>
+                  <small>أنتي الهدوء اللي بيطمنّي، والضحكة اللي بتصلّح اليوم كله.</small>
+                </div>
+              </div>
+
+              <div class="moment">
+                <div class="ic">☕</div>
+                <div class="txt">
+                  <b>أبسط حاجة</b>
+                  <small>حتى لو يوم عادي… وجودك بيخليه “مميز”.</small>
+                </div>
+              </div>
+
+              <div class="moment">
+                <div class="ic">🌙</div>
+                <div class="txt">
+                  <b>وعد صغير</b>
+                  <small>هفضل أختارك كل يوم… مش مرة واحدة وبس.</small>
+                </div>
+              </div>
+
+              <div class="moment">
+                <div class="ic">🫶</div>
+                <div class="txt">
+                  <b>وأمان</b>
+                  <small>في حضنك… الدنيا بتبقى أهدى.</small>
+                </div>
+              </div>
+            </div>
+
+            <p style="margin-top:12px" class="note">
+              * تلميح: فيه مفاجآت “بتفتح” مع الوقت + زرار الـ 💍.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      مصنوع بحب… من <b>عمر</b> لموزة ♥
+      <div style="margin-top:6px; opacity:.9;">(لو حابة/حابب نضيف صوركم أو أغنية أو لعبة صغيرة — قولّي)</div>
+    </footer>
+  </div>
+
+  <!-- Proposal Modal -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="سؤال فالنتاين">
+      <div class="modalHeader">
+        <h3>💍 سؤال مهم جدًا…</h3>
+        <button class="close" id="closeModal">إغلاق ✖</button>
+      </div>
+
+      <div class="modalBody">
+        <p class="bigQ" id="bigQ">موزة… تقبلي تكوني فالنتايني طول العمر؟ ♥</p>
+        <div class="choices">
+          <button class="btn primary yes" id="yesBtn">أكيد يا عمر 😭♥</button>
+          <button class="btn no" id="noBtn">مممم… لا 🙈</button>
+        </div>
+
+        <div class="result" id="resultBox">
+          <p id="resultText">♥</p>
+        </div>
+
+        <div class="note">
+          * زر “لا” بيتحرك لو حاولتِ تضغطيه 😄 (تقدر تخليه طبيعي لو تحب)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Optional Music (no external file needed; uses WebAudio) -->
+  <script>
+    // =========================
+    // 1) CONFIG (EDIT EASILY)
+    // =========================
+    const CONFIG = {
+      // عدّل التاريخ هنا: فالنتاين (14 فبراير 2026) كمثال
+      // استخدم صيغة: new Date("2026-02-14T00:00:00+02:00")
+      targetDate: new Date("2026-02-14T00:00:00+02:00"),
+
+      groomName: "عمر",
+      brideName: "موزة",
+
+      // رسائل المفاجآت (تتغير كل مرة تضغط)
+      surprises: [
+        "موزة… في كل مرة أشوفك بحس إن الدنيا بتضحك ♥",
+        "النهارده… مش يوم عادي… ده يوم بيقولك: “أنتي أغلى هدية” 🎁",
+        "أنتي مش بس حبيبتي… أنتِ راحتي 🌸",
+        "لو الحب بيتكتب… أنا هكتب اسمك في أول سطر وآخر سطر 🥹",
+        "موزة… وعد: هفضل أعملك مكان آمن جوا قلبي طول العمر 🫶",
+        "مفاجأة صغيرة: افتحي زر 💍… (وبلاش تمسكي زر لا 😄)"
+      ],
+
+      // رسالة سرية
+      secretMessage: "الرسالة السرّية: أنتِ أجمل اختيار… وأحلى قدر ♥",
+
+      // “ذكرى لطيفة” (تقدر تحط فيها وصف أول خروجة/مكان/تاريخ)
+      cuteMemory: "ذكرى لطيفة: أول مرة حسّيت إن قلبي اتطمن… كانت وإنتِ قدامي 💞",
+
+      // نص نتيجة زر YES
+      yesResult: "إذن خلاص… اتفقنا ♥\nموزة… أنا بحبك، وهفضل أختارك كل يوم.\n— عمر",
+
+      // هل زر (لا) يتحرك؟
+      dodgeNoButton: true,
+    };
+
+    // =========================
+    // 2) DATE / COUNTDOWN
+    // =========================
+    const $ = (id) => document.getElementById(id);
+    const dEl = $("d"), hEl = $("h"), mEl = $("m"), sEl = $("s");
+    const todayPill = $("todayPill");
+
+    function pad2(n){ return String(n).padStart(2,"0"); }
+
+    function formatArabicDate(date){
+      const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      return `${days[date.getDay()]} — ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    todayPill.textContent = "📅 اليوم: " + formatArabicDate(new Date());
+
+    function tick(){
+      const now = new Date();
+      let diff = CONFIG.targetDate - now;
+      if(diff < 0) diff = 0;
+
+      const s = Math.floor(diff/1000);
+      const days = Math.floor(s / (3600*24));
+      const hrs  = Math.floor((s % (3600*24)) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      const secs = s % 60;
+
+      dEl.textContent = days;
+      hEl.textContent = pad2(hrs);
+      mEl.textContent = pad2(mins);
+      sEl.textContent = pad2(secs);
+
+      // مفاجأة تلقائية عند الوصول
+      if(diff === 0){
+        showToast("وصلنا للوقت! افتحي مفاجآتك كلها… ♥");
+      }
+    }
+    setInterval(tick, 1000);
+    tick();
+
+    // =========================
+    // 3) SURPRISES
+    // =========================
+    const surpriseText = $("surpriseText");
+    const revealBtn = $("revealBtn");
+    const secretBtn = $("secretBtn");
+    const memoryBtn = $("memoryBtn");
+
+    let surpriseIndex = 0;
+    function setSurprise(msg){
+      surpriseText.textContent = msg;
+      popHearts(16);
+    }
+
+    revealBtn.addEventListener("click", () => {
+      setSurprise(CONFIG.surprises[surpriseIndex % CONFIG.surprises.length]);
+      surpriseIndex++;
+    });
+
+    secretBtn.addEventListener("click", () => {
+      setSurprise(CONFIG.secretMessage);
+      showToast("تم فتح رسالة سرّية 🔐");
+    });
+
+    memoryBtn.addEventListener("click", () => {
+      setSurprise(CONFIG.cuteMemory);
+      showToast("ذكرى لطيفة اتفتحت 📸");
+    });
+
+    // =========================
+    // 4) MODAL (PROPOSAL)
+    // =========================
+    const overlay = $("overlay");
+    const openProposal = $("openProposal");
+    const closeModal = $("closeModal");
+    const yesBtn = $("yesBtn");
+    const noBtn = $("noBtn");
+    const resultBox = $("resultBox");
+    const resultText = $("resultText");
+    const bigQ = $("bigQ");
+
+    // personalize names
+    bigQ.textContent = `${CONFIG.brideName}… تقبلي تكوني فالنتايني طول العمر؟ ♥`;
+
+    function openModal(){
+      overlay.style.display = "flex";
+      overlay.setAttribute("aria-hidden","false");
+      popHearts(22);
+    }
+    function hideModal(){
+      overlay.style.display = "none";
+      overlay.setAttribute("aria-hidden","true");
+    }
+
+    openProposal.addEventListener("click", openModal);
+    closeModal.addEventListener("click", hideModal);
+    overlay.addEventListener("click", (e) => { if(e.target === overlay) hideModal(); });
+
+    yesBtn.addEventListener("click", () => {
+      resultBox.style.display = "block";
+      resultText.textContent = CONFIG.yesResult;
+      popHearts(40);
+      confettiBurst();
+      showToast("ياااه! ♥");
+    });
+
+    // dodge NO button
+    function moveNoButton(){
+      const r = noBtn.getBoundingClientRect();
+      const pad = 12;
+      const maxX = window.innerWidth - r.width - pad;
+      const maxY = window.innerHeight - r.height - pad;
+
+      const x = Math.max(pad, Math.random()*maxX);
+      const y = Math.max(pad, Math.random()*maxY);
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.zIndex = 1200;
+
+      showToast("لااا… مش هتقدري تضغطيها 😄");
+      popHearts(10);
+    }
+
+    if(CONFIG.dodgeNoButton){
+      ["mouseenter","touchstart","pointerenter","click"].forEach(ev=>{
+        noBtn.addEventListener(ev, (e) => {
+          e.preventDefault();
+          moveNoButton();
+        }, {passive:false});
+      });
+    } else {
+      noBtn.addEventListener("click", () => {
+        resultBox.style.display = "block";
+        resultText.textContent = "حتى لو قلتي لا… أنا لسه بحبك 😄♥";
+      });
+    }
+
+    // =========================
+    // 5) TOAST
+    // =========================
+    const toast = $("toast");
+    let toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toast.style.display="none", 2400);
+    }
+
+    // =========================
+    // 6) HEART / CONFETTI FX
+    // =========================
+    const confettiBtn = $("confettiBtn");
+    confettiBtn.addEventListener("click", () => {
+      confettiBurst();
+      showToast("رشّينا قلوب كتير 💞");
+    });
+
+    function confettiBurst(){
+      popHearts(45);
+    }
+
+    // Canvas hearts
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
+    let W=0,H=0;
+    function resize(){
+      W = canvas.width = window.innerWidth * devicePixelRatio;
+      H = canvas.height = window.innerHeight * devicePixelRatio;
+      canvas.style.width = window.innerWidth+"px";
+      canvas.style.height = window.innerHeight+"px";
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const particles = [];
+    function popHearts(n=18){
+      for(let i=0;i<n;i++){
+        particles.push({
+          x: Math.random()*window.innerWidth,
+          y: window.innerHeight + 20 + Math.random()*60,
+          vx: (Math.random()-.5)*0.9,
+          vy: - (1.3 + Math.random()*2.2),
+          size: 10 + Math.random()*14,
+          rot: Math.random()*Math.PI,
+          vr: (Math.random()-.5)*0.08,
+          life: 160 + Math.random()*60,
+          t: 0,
+          hue: 330 + Math.random()*25
+        });
+      }
+    }
+
+    function drawHeart(x,y,s,rot,color){
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.rotate(rot);
+      ctx.scale(s/20, s/20);
+      ctx.beginPath();
+      ctx.moveTo(0, 7);
+      ctx.bezierCurveTo(0, 0, -12, 0, -12, 7);
+      ctx.bezierCurveTo(-12, 14, 0, 18, 0, 24);
+      ctx.bezierCurveTo(0, 18, 12, 14, 12, 7);
+      ctx.bezierCurveTo(12, 0, 0, 0, 0, 7);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.shadowColor = "rgba(0,0,0,.25)";
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+      for(let i=particles.length-1;i>=0;i--){
+        const p = particles[i];
+        p.t++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.vy *= 0.997; // slow
+        const a = Math.max(0, 1 - p.t/p.life);
+
+        drawHeart(p.x, p.y, p.size, p.rot, `hsla(${p.hue}, 95%, 70%, ${a})`);
+
+        if(p.t > p.life || p.y < -60){
+          particles.splice(i,1);
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // give some hearts at start
+    setTimeout(()=>popHearts(14), 450);
+
+    // =========================
+    // 7) MUSIC (simple WebAudio)
+    // =========================
+    const musicBtn = $("musicBtn");
+    let audioCtx = null;
+    let osc = null;
+    let gain = null;
+    let playing = false;
+
+    function startMusic(){
+      // simple cute melody using oscillator (no external files)
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      gain = audioCtx.createGain();
+      gain.gain.value = 0.03; // low volume
+      gain.connect(audioCtx.destination);
+
+      osc = audioCtx.createOscillator();
+      osc.type = "sine";
+      osc.connect(gain);
+
+      const notes = [440, 494, 523, 494, 440, 392, 440, 494, 523, 587, 523, 494, 440];
+      let idx = 0;
+
+      function step(){
+        if(!playing) return;
+        const f = notes[idx % notes.length];
+        osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+        idx++;
+        setTimeout(step, 320);
+      }
+
+      osc.start();
+      playing = true;
+      step();
+      musicBtn.textContent = "⏸️ إيقاف";
+      showToast("موسيقى لطيفة شغّالة 🎵");
+    }
+
+    function stopMusic(){
+      playing = false;
+      musicBtn.textContent = "🎵 موسيقى";
+      try{
+        osc && osc.stop();
+        audioCtx && audioCtx.close();
+      }catch(e){}
+      osc = null; audioCtx=null; gain=null;
+      showToast("تم إيقاف الموسيقى");
+    }
+
+    musicBtn.addEventListener("click", async () => {
+      if(!playing){
+        // iOS needs user gesture; already in click
+        startMusic();
+      }else{
+        stopMusic();
+      }
+    });
+
+    // =========================
+    // 8) PERSONAL GREET
+    // =========================
+    showToast(`أهلًا موزة… من ${CONFIG.groomName} ♥`);
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مفاجأة فالنتاين لموزة ♥</title>
+
+<style>
+body{
+  margin:0;
+  font-family:system-ui;
+  color:white;
+  text-align:center;
+  background:linear-gradient(135deg,#ff4d8d,#6b0f1a);
+}
+button{
+  padding:12px 18px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  margin:5px;
+  font-size:16px;
+}
+.primary{background:#ff4d8d;color:white;}
+</style>
+</head>
+
+<body>
+
+<h1>يا موزة... عندي ليكي مفاجأة كبيرة ♥</h1>
+<p>من عمر ✨</p>
+
+<button id="openProposal" class="primary">💍 السؤال المهم</button>
+<button id="waBtn">💬 واتساب عمر</button>
+
+<div id="proposal" style="display:none;margin-top:20px;">
+  <h2>تقبلي تكوني فالنتايني طول العمر؟ 😭♥</h2>
+  <button id="yesBtn" class="primary">أكيد 😭♥</button>
+  <button id="noBtn">لا 🙈</button>
+</div>
+
+<script>
+const CONFIG = {
+  groomName: "عمر",
+  brideName: "موزة",
+  whatsAppNumber: "201091838040",
+  whatsAppDefaultMsg: "يا عمر ♥ دخلت الموقع وعندي مفاجأة ليك 😄",
+};
+
+const $ = (id)=>document.getElementById(id);
+
+function openWhatsApp(message){
+  const text = encodeURIComponent(message);
+  const url = `https://wa.me/${CONFIG.whatsAppNumber}?text=${text}`;
+  window.open(url, "_blank");
+}
+
+// زر واتساب العادي
+$("waBtn").addEventListener("click", ()=>{
+  openWhatsApp(CONFIG.whatsAppDefaultMsg);
+});
+
+// فتح السؤال
+$("openProposal").addEventListener("click", ()=>{
+  $("proposal").style.display="block";
+});
+
+// YES → يفتح واتساب
+$("yesBtn").addEventListener("click", ()=>{
+  const msg = `موزة: أكيد يا ${CONFIG.groomName} ♥ وافقت 😭💍`;
+  setTimeout(()=>openWhatsApp(msg),500);
+});
+
+// زر لا يتحرك 😂
+$("noBtn").addEventListener("mouseenter", ()=>{
+  const x = Math.random()*300;
+  const y = Math.random()*300;
+  $("noBtn").style.position="relative";
+  $("noBtn").style.left=x+"px";
+  $("noBtn").style.top=y+"px";
+});
+</script>
+
+</body>
+</html>
