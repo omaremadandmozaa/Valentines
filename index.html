@@ -845,90 +845,89 @@
     // =========================
     showToast(`أهلًا موزة… من ${CONFIG.groomName} ♥`);
   </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>مفاجأة فالنتاين لموزة ♥</title>
+  <script>
+(function () {
+  // ✅ رقم عمر بصيغة دولية (مصر)
+  const WHATSAPP_NUMBER = "201091838040";
 
-<style>
-body{
-  margin:0;
-  font-family:system-ui;
-  color:white;
-  text-align:center;
-  background:linear-gradient(135deg,#ff4d8d,#6b0f1a);
-}
-button{
-  padding:12px 18px;
-  border-radius:12px;
-  border:none;
-  cursor:pointer;
-  margin:5px;
-  font-size:16px;
-}
-.primary{background:#ff4d8d;color:white;}
-</style>
-</head>
+  // --- helper: افتح واتساب برسالة
+  function openWhatsApp(message) {
+    const text = encodeURIComponent(message || "يا عمر ♥");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    window.open(url, "_blank");
+  }
 
-<body>
+  // --- helper: افتح نافذة السؤال (لو موجودة)
+  function openProposal() {
+    // جرّب أشهر أسماء/IDs ممكن تكون عندك
+    const overlay =
+      document.getElementById("overlay") ||
+      document.getElementById("proposalOverlay") ||
+      document.getElementById("proposalModal") ||
+      document.querySelector(".overlay") ||
+      document.querySelector('[data-modal="proposal"]');
 
-<h1>يا موزة... عندي ليكي مفاجأة كبيرة ♥</h1>
-<p>من عمر ✨</p>
+    if (overlay) {
+      overlay.style.display = "flex";
+      overlay.setAttribute("aria-hidden", "false");
+      return true;
+    }
+    return false;
+  }
 
-<button id="openProposal" class="primary">💍 السؤال المهم</button>
-<button id="waBtn">💬 واتساب عمر</button>
+  // --- 1) زر واتساب (حتى لو id مش موجود)
+  const waBtn =
+    document.getElementById("waBtn") ||
+    document.getElementById("whatsappBtn") ||
+    document.querySelector('[data-action="whatsapp"]') ||
+    Array.from(document.querySelectorAll("button,a")).find(el =>
+      (el.textContent || "").includes("واتساب")
+    );
 
-<div id="proposal" style="display:none;margin-top:20px;">
-  <h2>تقبلي تكوني فالنتايني طول العمر؟ 😭♥</h2>
-  <button id="yesBtn" class="primary">أكيد 😭♥</button>
-  <button id="noBtn">لا 🙈</button>
-</div>
+  if (waBtn) {
+    waBtn.addEventListener("click", function () {
+      openWhatsApp("يا عمر ♥ موزة دخلت الموقع…");
+    });
+  }
 
-<script>
-const CONFIG = {
-  groomName: "عمر",
-  brideName: "موزة",
-  whatsAppNumber: "201091838040",
-  whatsAppDefaultMsg: "يا عمر ♥ دخلت الموقع وعندي مفاجأة ليك 😄",
-};
+  // --- 2) زر السؤال المهم
+  const qBtn =
+    document.getElementById("openProposal") ||
+    document.getElementById("questionBtn") ||
+    document.querySelector('[data-action="proposal"]') ||
+    Array.from(document.querySelectorAll("button,a")).find(el =>
+      (el.textContent || "").includes("السؤال")
+    );
 
-const $ = (id)=>document.getElementById(id);
+  if (qBtn) {
+    qBtn.addEventListener("click", function () {
+      const ok = openProposal();
+      if (!ok) {
+        // لو مفيش modal في الصفحة، افتح واتساب بدلها كحل احتياطي
+        openWhatsApp("يا عمر ♥ زرّ السؤال اتضغط… بس نافذة السؤال مش ظاهرة عندي. ممكن تصلحها؟ 😄");
+        alert("نافذة السؤال مش لاقيينها في الصفحة. لو تحب ابعتلي جزء الكود بتاعها وأصلحها لك فورًا.");
+      }
+    });
+  }
 
-function openWhatsApp(message){
-  const text = encodeURIComponent(message);
-  const url = `https://wa.me/${CONFIG.whatsAppNumber}?text=${text}`;
-  window.open(url, "_blank");
-}
+  // --- 3) لو زر YES موجود، خلّيه يفتح واتساب تلقائيًا
+  const yesBtn =
+    document.getElementById("yesBtn") ||
+    document.querySelector('[data-action="yes"]') ||
+    Array.from(document.querySelectorAll("button")).find(el =>
+      (el.textContent || "").includes("أكيد")
+    );
 
-// زر واتساب العادي
-$("waBtn").addEventListener("click", ()=>{
-  openWhatsApp(CONFIG.whatsAppDefaultMsg);
-});
+  if (yesBtn) {
+    yesBtn.addEventListener("click", function () {
+      openWhatsApp("موزة: أكيد يا عمر ♥ وافقت! 😭💍");
+    });
+  }
 
-// فتح السؤال
-$("openProposal").addEventListener("click", ()=>{
-  $("proposal").style.display="block";
-});
-
-// YES → يفتح واتساب
-$("yesBtn").addEventListener("click", ()=>{
-  const msg = `موزة: أكيد يا ${CONFIG.groomName} ♥ وافقت 😭💍`;
-  setTimeout(()=>openWhatsApp(msg),500);
-});
-
-// زر لا يتحرك 😂
-$("noBtn").addEventListener("mouseenter", ()=>{
-  const x = Math.random()*300;
-  const y = Math.random()*300;
-  $("noBtn").style.position="relative";
-  $("noBtn").style.left=x+"px";
-  $("noBtn").style.top=y+"px";
-});
+  // --- Debug بسيط: لو الأزرار مش موجودة أساسًا
+  // (مش هيظهر للمستخدم إلا لو بتفتح DevTools)
+  console.log("[Valentine] waBtn:", !!waBtn, "qBtn:", !!qBtn, "yesBtn:", !!yesBtn);
+})();
 </script>
-
 </body>
 </html>
